@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven'   // must match the name in Manage Jenkins → Tools
+    }
     environment {
         APP_VERSION = '1.0.0'
     }
@@ -7,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building version ${APP_VERSION}.."
+                bat 'mvn --version'   // Windows — use bat instead of sh
             }
         }
         stage('Test') {
@@ -16,7 +20,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo "Deploying version ${APP_VERSION}...."
+                echo 'Deploying....'
             }
         }
     }
